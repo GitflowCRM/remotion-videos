@@ -163,9 +163,9 @@ const PropertySite = ({ showChat = false, chatContent }: { showChat?: boolean; c
         </div>
       </div>
       
-      {/* Chat Widget */}
+      {/* Chat Widget - TALLER */}
       {showChat && (
-        <div style={{ position: 'absolute', bottom: 25, right: 30, width: 380, background: 'white', borderRadius: 16, boxShadow: '0 10px 40px rgba(0,0,0,0.2)', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', bottom: 20, right: 30, width: 420, minHeight: 520, background: 'white', borderRadius: 16, boxShadow: '0 10px 40px rgba(0,0,0,0.2)', overflow: 'hidden' }}>
           {chatContent}
         </div>
       )}
@@ -212,18 +212,18 @@ const OfflineChatScene = () => {
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 18 }}>✕</div>
         </div>
         
-        <div style={{ padding: 20, minHeight: 280 }}>
-          <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 14, padding: 20, textAlign: 'center' }}>
-            <div style={{ fontSize: 40, marginBottom: 12 }}>😴</div>
-            <div style={{ color: '#991b1b', fontWeight: 700, fontSize: 16, marginBottom: 6 }}>We're currently offline</div>
-            <div style={{ color: '#b91c1c', fontSize: 12, lineHeight: 1.5 }}>Office hours: Sun-Thu, 9 AM - 6 PM<br />Leave a message for tomorrow</div>
+        <div style={{ padding: 24, minHeight: 380 }}>
+          <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 16, padding: 28, textAlign: 'center' }}>
+            <div style={{ fontSize: 50, marginBottom: 16 }}>😴</div>
+            <div style={{ color: '#991b1b', fontWeight: 700, fontSize: 20, marginBottom: 10 }}>We're currently offline</div>
+            <div style={{ color: '#b91c1c', fontSize: 14, lineHeight: 1.6 }}>Office hours: Sun-Thu, 9 AM - 6 PM<br />Leave a message for tomorrow</div>
           </div>
           
           {frame > 80 && (
-            <div style={{ marginTop: 16, background: '#1e293b', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: spring({ frame: frame - 80, fps }) }}>
-              <span style={{ fontSize: 18 }}>🌙</span>
-              <span style={{ color: 'white', fontSize: 15, fontWeight: 600 }}>2:47 AM</span>
-              <span style={{ color: '#94a3b8', fontSize: 12 }}>in Dubai</span>
+            <div style={{ marginTop: 20, background: '#1e293b', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, opacity: spring({ frame: frame - 80, fps }) }}>
+              <span style={{ fontSize: 22 }}>🌙</span>
+              <span style={{ color: 'white', fontSize: 18, fontWeight: 600 }}>2:47 AM</span>
+              <span style={{ color: '#94a3b8', fontSize: 14 }}>in Dubai</span>
             </div>
           )}
         </div>
@@ -426,7 +426,7 @@ const LiveChatScene = () => {
           </div>
         </div>
         
-        <div style={{ padding: 16, height: 320, overflow: 'hidden', position: 'relative' }}>
+        <div style={{ padding: 18, height: 380, overflow: 'hidden', position: 'relative' }}>
           {pages.map((page, pageIndex) => {
             const pageOpacity = getPageOpacity(page, pageIndex);
             if (pageOpacity === 0) return null;
