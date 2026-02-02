@@ -34,36 +34,36 @@ const TypingIndicator = ({ startFrame, duration }: { startFrame: number; duratio
     <div style={{
       display: 'flex',
       justifyContent: 'flex-start',
-      marginBottom: 12,
+      marginBottom: 14,
       opacity: progress,
     }}>
       <div style={{
-        width: 32,
-        height: 32,
+        width: 36,
+        height: 36,
         borderRadius: '50%',
         background: COLORS.gradient,
-        marginRight: 10,
+        marginRight: 12,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 14,
         flexShrink: 0,
       }}>
-        🏠
+        <span style={{ fontSize: 14, fontWeight: 700, color: 'white' }}>M</span>
       </div>
       <div style={{
         background: '#f1f5f9',
-        padding: '12px 16px',
-        borderRadius: '16px 16px 16px 4px',
+        padding: '14px 20px',
+        borderRadius: '18px 18px 18px 4px',
         display: 'flex',
-        gap: 5,
+        gap: 6,
+        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
       }}>
         {[0, 1, 2].map((i) => (
           <div
             key={i}
             style={{
-              width: 8,
-              height: 8,
+              width: 10,
+              height: 10,
               borderRadius: '50%',
               background: '#94a3b8',
               opacity: interpolate(
@@ -71,7 +71,7 @@ const TypingIndicator = ({ startFrame, duration }: { startFrame: number; duratio
                 [-1, 1],
                 [0.3, 1]
               ),
-              transform: `translateY(${Math.sin((frame - startFrame) * 0.3 + i * 1.2) * -2}px)`,
+              transform: `translateY(${Math.sin((frame - startFrame) * 0.3 + i * 1.2) * -3}px)`,
             }}
           />
         ))}
@@ -125,35 +125,35 @@ const ChatBubble = ({
     <div style={{
       display: 'flex',
       justifyContent: isUser ? 'flex-end' : 'flex-start',
-      marginBottom: 12,
+      marginBottom: 14,
       opacity: progress,
       transform: `translateY(${(1 - progress) * 15}px)`,
     }}>
       {!isUser && (
         <div style={{
-          width: 32,
-          height: 32,
+          width: 36,
+          height: 36,
           borderRadius: '50%',
           background: COLORS.gradient,
-          marginRight: 10,
+          marginRight: 12,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 14,
           flexShrink: 0,
         }}>
-          🏠
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'white' }}>M</span>
         </div>
       )}
       <div style={{
         background: isUser ? COLORS.primary : '#f1f5f9',
         color: isUser ? 'white' : COLORS.text,
-        padding: '10px 16px',
-        borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+        padding: '12px 18px',
+        borderRadius: isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
         maxWidth: '80%',
-        fontSize: 14,
+        fontSize: 15,
         lineHeight: 1.5,
         fontFamily,
+        boxShadow: isUser ? 'none' : '0 1px 2px rgba(0,0,0,0.05)',
       }}>
         {typing ? (
           <TypeWriter text={message} startFrame={delay + 8} />
@@ -172,50 +172,59 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
   const frame = useCurrentFrame();
   
   return (
-    <AbsoluteFill style={{ background: COLORS.background, fontFamily }}>
-      {/* Header */}
+    <AbsoluteFill style={{ background: '#f5f5f5', fontFamily }}>
+      {/* Header - PropertyFinder style */}
       <div style={{
         background: COLORS.white,
-        padding: '12px 40px',
+        padding: '0 60px',
+        height: 70,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '1px solid #e5e7eb',
+        borderBottom: '1px solid #e0e0e0',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 50 }}>
           {/* Logo */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 12,
           }}>
             <div style={{
-              width: 36,
-              height: 36,
-              background: COLORS.gradient,
-              borderRadius: 8,
+              width: 44,
+              height: 44,
+              background: COLORS.primary,
+              borderRadius: 10,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <span style={{ color: 'white', fontSize: 20 }}>🏠</span>
+              <span style={{ color: 'white', fontSize: 24, fontWeight: 700 }}>M</span>
             </div>
-            <span style={{ 
-              fontSize: 22, 
-              fontWeight: 700, 
-              color: COLORS.secondary,
-            }}>
-              Marina Properties
-            </span>
+            <div>
+              <div style={{ 
+                fontSize: 20, 
+                fontWeight: 700, 
+                color: '#1a1a1a',
+                letterSpacing: '-0.5px',
+              }}>
+                Marina Properties
+              </div>
+              <div style={{ fontSize: 11, color: '#666', marginTop: -2 }}>
+                Dubai's Premium Real Estate
+              </div>
+            </div>
           </div>
           
           {/* Nav */}
-          <div style={{ display: 'flex', gap: 25 }}>
-            {['Buy', 'Rent', 'New Projects', 'Find Agent'].map((item) => (
+          <div style={{ display: 'flex', gap: 35 }}>
+            {['Buy', 'Rent', 'New Projects', 'Commercial'].map((item, i) => (
               <span key={item} style={{ 
-                color: COLORS.textLight, 
+                color: i === 1 ? COLORS.primary : '#444',
                 fontSize: 15,
                 fontWeight: 500,
+                borderBottom: i === 1 ? `2px solid ${COLORS.primary}` : 'none',
+                paddingBottom: 4,
               }}>
                 {item}
               </span>
@@ -223,12 +232,15 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
           </div>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
-          <span style={{ color: COLORS.textLight, fontSize: 14 }}>🇦🇪 EN</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <span style={{ color: '#666', fontSize: 14 }}>🇦🇪 EN</span>
+          <div style={{ color: '#444', fontSize: 14, fontWeight: 500 }}>
+            ☎️ +971 4 XXX XXXX
+          </div>
           <div style={{
-            background: COLORS.gradient,
+            background: COLORS.primary,
             color: 'white',
-            padding: '8px 20px',
+            padding: '10px 24px',
             borderRadius: 8,
             fontSize: 14,
             fontWeight: 600,
@@ -238,140 +250,199 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
         </div>
       </div>
       
-      {/* Hero Section */}
+      {/* Hero Section - Clean gradient */}
       <div style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-        padding: '60px 40px',
-        textAlign: 'center',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+        padding: '70px 60px',
+        position: 'relative',
       }}>
-        <h1 style={{
-          color: 'white',
-          fontSize: 42,
-          fontWeight: 700,
-          marginBottom: 15,
-          margin: 0,
-        }}>
-          Find Your Dream Home in Dubai
-        </h1>
-        <p style={{
-          color: 'rgba(255,255,255,0.7)',
-          fontSize: 18,
-          marginBottom: 30,
-          margin: '15px 0 30px',
-        }}>
-          Discover 5,000+ premium properties across Dubai Marina, JBR & Palm Jumeirah
-        </p>
-        
-        {/* Search Bar */}
+        {/* Subtle pattern overlay */}
         <div style={{
-          background: 'white',
-          borderRadius: 12,
-          padding: 8,
-          maxWidth: 800,
-          margin: '0 auto',
-          display: 'flex',
-          gap: 10,
-        }}>
-          <div style={{
-            flex: 1,
-            background: '#f8f9fa',
-            borderRadius: 8,
-            padding: '14px 18px',
-            textAlign: 'left',
-            color: COLORS.textLight,
-            fontSize: 15,
-          }}>
-            🔍 Dubai Marina, JBR, Palm Jumeirah...
-          </div>
-          <div style={{
-            background: '#f8f9fa',
-            borderRadius: 8,
-            padding: '14px 18px',
-            color: COLORS.textLight,
-            fontSize: 15,
-          }}>
-            🏠 Any Type
-          </div>
-          <div style={{
-            background: '#f8f9fa',
-            borderRadius: 8,
-            padding: '14px 18px',
-            color: COLORS.textLight,
-            fontSize: 15,
-          }}>
-            💰 Any Price
-          </div>
-          <div style={{
-            background: COLORS.gradient,
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'radial-gradient(circle at 70% 30%, rgba(0,166,81,0.1) 0%, transparent 50%)',
+        }} />
+        
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <h1 style={{
             color: 'white',
-            borderRadius: 8,
-            padding: '14px 30px',
-            fontSize: 15,
-            fontWeight: 600,
+            fontSize: 48,
+            fontWeight: 700,
+            marginBottom: 12,
+            margin: 0,
+            letterSpacing: '-1px',
           }}>
-            Search
+            Find Your Dream Home in Dubai
+          </h1>
+          <p style={{
+            color: 'rgba(255,255,255,0.6)',
+            fontSize: 18,
+            margin: '12px 0 35px',
+          }}>
+            5,247 premium properties in Marina, JBR, Palm Jumeirah & Downtown
+          </p>
+          
+          {/* Search Bar - PropertyFinder style */}
+          <div style={{
+            background: 'white',
+            borderRadius: 12,
+            padding: 6,
+            maxWidth: 900,
+            display: 'flex',
+            gap: 4,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+          }}>
+            <div style={{
+              flex: 1.5,
+              background: '#f8f9fa',
+              borderRadius: 8,
+              padding: '16px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+            }}>
+              <span style={{ fontSize: 18 }}>🔍</span>
+              <span style={{ color: '#999', fontSize: 15 }}>City, community or building</span>
+            </div>
+            <div style={{
+              flex: 0.7,
+              background: '#f8f9fa',
+              borderRadius: 8,
+              padding: '16px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              <span style={{ color: '#333', fontSize: 15 }}>Apartment</span>
+              <span style={{ color: '#999' }}>▼</span>
+            </div>
+            <div style={{
+              flex: 0.7,
+              background: '#f8f9fa',
+              borderRadius: 8,
+              padding: '16px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              <span style={{ color: '#333', fontSize: 15 }}>Any Price</span>
+              <span style={{ color: '#999' }}>▼</span>
+            </div>
+            <div style={{
+              flex: 0.5,
+              background: '#f8f9fa',
+              borderRadius: 8,
+              padding: '16px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              <span style={{ color: '#333', fontSize: 15 }}>Beds</span>
+              <span style={{ color: '#999' }}>▼</span>
+            </div>
+            <div style={{
+              background: COLORS.primary,
+              color: 'white',
+              borderRadius: 8,
+              padding: '16px 40px',
+              fontSize: 16,
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              Search
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Property Cards */}
+      {/* Property Cards - Cleaner design */}
       <div style={{
-        padding: '30px 40px',
+        padding: '35px 60px',
         display: 'flex',
-        gap: 20,
+        gap: 24,
       }}>
         {[
-          { title: '2BR Marina View', price: 'AED 120,000/yr', location: 'Dubai Marina', beds: 2, img: '🏢' },
-          { title: 'Luxury Penthouse', price: 'AED 450,000/yr', location: 'Palm Jumeirah', beds: 4, img: '🌴' },
-          { title: 'Beachfront Villa', price: 'AED 2.8M', location: 'JBR', beds: 5, img: '🏖️' },
+          { title: '2BR Apartment with Marina View', price: 'AED 120,000', period: '/year', location: 'Dubai Marina', beds: 2, baths: 2, sqft: '1,250', img: '🏢', tag: 'VERIFIED' },
+          { title: 'Luxury Penthouse', price: 'AED 3,500,000', period: '', location: 'Palm Jumeirah', beds: 4, baths: 5, sqft: '4,800', img: '🌴', tag: 'PREMIUM' },
+          { title: 'Beachfront Villa', price: 'AED 8,900,000', period: '', location: 'JBR', beds: 5, baths: 6, sqft: '6,200', img: '🏖️', tag: 'NEW' },
         ].map((property, i) => (
           <div key={i} style={{
             background: 'white',
             borderRadius: 12,
             overflow: 'hidden',
             flex: 1,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
           }}>
             <div style={{
-              height: 140,
-              background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
+              height: 160,
+              background: `linear-gradient(135deg, ${i === 0 ? '#dbeafe' : i === 1 ? '#fef3c7' : '#d1fae5'} 0%, ${i === 0 ? '#bfdbfe' : i === 1 ? '#fde68a' : '#a7f3d0'} 100%)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 50,
+              fontSize: 60,
+              position: 'relative',
             }}>
               {property.img}
-            </div>
-            <div style={{ padding: 16 }}>
-              <div style={{ 
-                color: COLORS.primary, 
-                fontWeight: 700, 
-                fontSize: 18,
-                marginBottom: 4,
+              <div style={{
+                position: 'absolute',
+                top: 12,
+                left: 12,
+                background: property.tag === 'VERIFIED' ? COLORS.primary : property.tag === 'PREMIUM' ? '#f59e0b' : '#3b82f6',
+                color: 'white',
+                padding: '4px 10px',
+                borderRadius: 4,
+                fontSize: 10,
+                fontWeight: 700,
               }}>
-                {property.price}
+                {property.tag}
               </div>
-              <div style={{ color: COLORS.text, fontWeight: 600, fontSize: 15 }}>
+            </div>
+            <div style={{ padding: 18 }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                <span style={{ 
+                  color: COLORS.primary, 
+                  fontWeight: 700, 
+                  fontSize: 20,
+                }}>
+                  {property.price}
+                </span>
+                <span style={{ color: '#999', fontSize: 13 }}>{property.period}</span>
+              </div>
+              <div style={{ color: '#1a1a1a', fontWeight: 600, fontSize: 15, marginTop: 6 }}>
                 {property.title}
               </div>
-              <div style={{ color: COLORS.textLight, fontSize: 13, marginTop: 4 }}>
-                📍 {property.location} · 🛏️ {property.beds} Beds
+              <div style={{ color: '#666', fontSize: 13, marginTop: 6 }}>
+                📍 {property.location}
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                gap: 16, 
+                marginTop: 12,
+                paddingTop: 12,
+                borderTop: '1px solid #f0f0f0',
+                color: '#666',
+                fontSize: 13,
+              }}>
+                <span>🛏️ {property.beds}</span>
+                <span>🚿 {property.baths}</span>
+                <span>📐 {property.sqft} sqft</span>
               </div>
             </div>
           </div>
         ))}
       </div>
       
-      {/* Chat Widget */}
+      {/* Chat Widget - LARGER */}
       {showChat && (
         <div style={{
           position: 'absolute',
-          bottom: 20,
-          right: 20,
-          width: 380,
+          bottom: 30,
+          right: 40,
+          width: 440,
           background: 'white',
-          borderRadius: 16,
-          boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+          borderRadius: 20,
+          boxShadow: '0 15px 50px rgba(0,0,0,0.2)',
           overflow: 'hidden',
         }}>
           {chatContent}
@@ -443,98 +514,92 @@ const OfflineChatScene = () => {
       <div style={{ transform: `scale(${chatProgress})`, transformOrigin: 'bottom right' }}>
         {/* Chat Header */}
         <div style={{
-          background: COLORS.gradient,
-          padding: '16px 20px',
+          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+          padding: '20px 24px',
           display: 'flex',
           alignItems: 'center',
-          gap: 12,
+          gap: 14,
         }}>
           <div style={{
-            width: 40,
-            height: 40,
+            width: 48,
+            height: 48,
             borderRadius: '50%',
             background: 'white',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 20,
           }}>
-            🏠
+            <span style={{ fontSize: 22, fontWeight: 700, color: COLORS.primary }}>M</span>
           </div>
-          <div>
-            <div style={{ color: 'white', fontWeight: 600, fontSize: 16 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ color: 'white', fontWeight: 600, fontSize: 17 }}>
               Marina Properties
             </div>
-            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
-              <span style={{ color: '#fca5a5' }}>● Offline</span>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, marginTop: 2 }}>
+              <span style={{ color: '#f87171' }}>● Offline</span> · Usually replies in 8 hours
             </div>
           </div>
+          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 20 }}>✕</div>
         </div>
         
         {/* Chat Body - Offline Message */}
-        <div style={{ padding: 20, minHeight: 200 }}>
+        <div style={{ padding: 24, minHeight: 280 }}>
           <div style={{
             background: '#fef2f2',
             border: '1px solid #fecaca',
-            borderRadius: 12,
-            padding: 16,
+            borderRadius: 16,
+            padding: 24,
             textAlign: 'center',
           }}>
-            <div style={{ fontSize: 30, marginBottom: 10 }}>😴</div>
+            <div style={{ fontSize: 50, marginBottom: 16 }}>😴</div>
             <div style={{ 
               color: '#991b1b', 
-              fontWeight: 600, 
-              fontSize: 15,
-              marginBottom: 6,
+              fontWeight: 700, 
+              fontSize: 18,
+              marginBottom: 8,
             }}>
               We're currently offline
             </div>
-            <div style={{ color: '#b91c1c', fontSize: 13 }}>
-              Office hours: 9 AM - 6 PM<br />
+            <div style={{ color: '#b91c1c', fontSize: 14, lineHeight: 1.6 }}>
+              Office hours: Sun-Thu, 9 AM - 6 PM<br />
               Leave a message and we'll reply tomorrow
             </div>
           </div>
           
           {frame > 90 && (
             <div style={{
-              marginTop: 15,
-              color: COLORS.textLight,
-              fontSize: 13,
-              textAlign: 'center',
+              marginTop: 20,
+              background: '#1e293b',
+              borderRadius: 12,
+              padding: '14px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
               opacity: spring({ frame: frame - 90, fps }),
             }}>
-              ⏰ Current time: <strong>2:47 AM</strong>
+              <span style={{ fontSize: 20 }}>🌙</span>
+              <span style={{ color: 'white', fontSize: 16, fontWeight: 600 }}>2:47 AM</span>
+              <span style={{ color: '#94a3b8', fontSize: 14 }}>in Dubai</span>
             </div>
           )}
         </div>
         
-        {/* Input */}
+        {/* Input - disabled look */}
         <div style={{
-          padding: '12px 16px',
+          padding: '16px 20px',
           borderTop: '1px solid #e5e7eb',
-          display: 'flex',
-          gap: 10,
+          background: '#f9fafb',
         }}>
           <div style={{
-            flex: 1,
-            background: '#f8f9fa',
-            borderRadius: 20,
-            padding: '10px 16px',
-            color: COLORS.textLight,
-            fontSize: 14,
-          }}>
-            Type a message...
-          </div>
-          <div style={{
-            width: 40,
-            height: 40,
             background: '#e5e7eb',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            borderRadius: 24,
+            padding: '14px 20px',
+            color: '#9ca3af',
+            fontSize: 15,
+            textAlign: 'center',
           }}>
-            ➤
+            Chat unavailable outside office hours
           </div>
         </div>
       </div>
@@ -802,52 +867,60 @@ const LiveChatScene = () => {
   return (
     <PropertyFinderSite showChat chatContent={
       <>
-        {/* Chat Header - Now Online 24/7 */}
+        {/* Chat Header - Now Online 24/7 with AI badge */}
         <div style={{
           background: COLORS.gradient,
-          padding: '14px 18px',
+          padding: '18px 22px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{
-              width: 36,
-              height: 36,
+              width: 46,
+              height: 46,
               borderRadius: '50%',
               background: 'white',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 18,
             }}>
-              🏠
+              <span style={{ fontSize: 20, fontWeight: 700, color: COLORS.primary }}>M</span>
             </div>
             <div>
-              <div style={{ color: 'white', fontWeight: 600, fontSize: 15 }}>
+              <div style={{ color: 'white', fontWeight: 600, fontSize: 17, display: 'flex', alignItems: 'center', gap: 8 }}>
                 Marina Properties
+                <span style={{
+                  background: 'rgba(255,255,255,0.2)',
+                  padding: '2px 8px',
+                  borderRadius: 4,
+                  fontSize: 10,
+                  fontWeight: 700,
+                }}>
+                  AI
+                </span>
               </div>
-              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 11 }}>
-                <span style={{ color: '#86efac' }}>● Online 24/7</span>
+              <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 13, marginTop: 2 }}>
+                <span style={{ color: '#86efac' }}>● Online 24/7</span> · Instant replies
               </div>
             </div>
           </div>
           {/* Time badge */}
           <div style={{
-            background: 'rgba(0,0,0,0.2)',
-            padding: '5px 10px',
-            borderRadius: 12,
+            background: 'rgba(0,0,0,0.25)',
+            padding: '8px 14px',
+            borderRadius: 20,
             display: 'flex',
             alignItems: 'center',
-            gap: 5,
+            gap: 6,
           }}>
-            <span style={{ fontSize: 12 }}>🌙</span>
-            <span style={{ color: 'white', fontSize: 12, fontWeight: 600 }}>2:47 AM</span>
+            <span style={{ fontSize: 14 }}>🌙</span>
+            <span style={{ color: 'white', fontSize: 14, fontWeight: 600 }}>2:47 AM</span>
           </div>
         </div>
         
-        {/* Chat Messages */}
-        <div style={{ padding: 16, height: 280, overflow: 'hidden', position: 'relative' }}>
+        {/* Chat Messages - LARGER */}
+        <div style={{ padding: 20, height: 340, overflow: 'hidden', position: 'relative' }}>
           {pages.map((page, pageIndex) => {
             const pageOpacity = getPageOpacity(page, pageIndex);
             if (pageOpacity === 0) return null;
@@ -857,9 +930,9 @@ const LiveChatScene = () => {
                 key={pageIndex}
                 style={{
                   position: 'absolute',
-                  top: 16,
-                  left: 16,
-                  right: 16,
+                  top: 20,
+                  left: 20,
+                  right: 20,
                   opacity: pageOpacity,
                 }}
               >
@@ -884,33 +957,35 @@ const LiveChatScene = () => {
           })}
         </div>
         
-        {/* Input */}
+        {/* Input - Active */}
         <div style={{
-          padding: '10px 14px',
+          padding: '14px 18px',
           borderTop: '1px solid #e5e7eb',
           display: 'flex',
-          gap: 8,
+          gap: 10,
+          background: '#fafafa',
         }}>
           <div style={{
             flex: 1,
-            background: '#f8f9fa',
-            borderRadius: 18,
-            padding: '8px 14px',
-            color: COLORS.textLight,
-            fontSize: 13,
+            background: 'white',
+            borderRadius: 24,
+            padding: '12px 18px',
+            color: '#999',
+            fontSize: 15,
+            border: '1px solid #e5e7eb',
           }}>
             Type a message...
           </div>
           <div style={{
-            width: 34,
-            height: 34,
+            width: 44,
+            height: 44,
             background: COLORS.gradient,
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            fontSize: 14,
+            fontSize: 18,
           }}>
             ➤
           </div>
