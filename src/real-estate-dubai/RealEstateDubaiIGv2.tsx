@@ -29,12 +29,12 @@ export const RealEstateDubaiIGv2: React.FC = () => {
     <AbsoluteFill style={{ background: COLORS.dark, fontFamily }}>
       {/* Top section with text */}
       <div style={{ 
-        height: 240, 
+        flex: 1,
         display: 'flex', 
         flexDirection: 'column', 
-        justifyContent: 'flex-end', 
+        justifyContent: 'center', 
         alignItems: 'center',
-        padding: '40px 40px 20px',
+        padding: '60px 40px 30px',
         textAlign: 'center'
       }}>
         <div style={{ 
