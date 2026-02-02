@@ -9,11 +9,74 @@ const COLORS = {
   gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%)',
 };
 
+// Typing dots indicator (shows before bot messages)
+const TypingIndicator = ({ startFrame, duration }: { startFrame: number; duration: number }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  
+  if (frame < startFrame || frame > startFrame + duration) return null;
+  
+  const progress = spring({
+    frame: frame - startFrame,
+    fps,
+    config: { damping: 12, stiffness: 100 },
+  });
+  
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'flex-start',
+      marginBottom: 14,
+      opacity: progress,
+    }}>
+      <div style={{
+        width: 36,
+        height: 36,
+        borderRadius: '50%',
+        background: COLORS.gradient,
+        marginRight: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 18,
+        flexShrink: 0,
+      }}>
+        🤖
+      </div>
+      <div style={{
+        background: '#1e293b',
+        padding: '14px 20px',
+        borderRadius: '18px 18px 18px 4px',
+        display: 'flex',
+        gap: 6,
+      }}>
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: '50%',
+              background: '#64748b',
+              opacity: interpolate(
+                Math.sin((frame - startFrame) * 0.3 + i * 1.2),
+                [-1, 1],
+                [0.3, 1]
+              ),
+              transform: `translateY(${Math.sin((frame - startFrame) * 0.3 + i * 1.2) * -3}px)`,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Typing animation
 const TypeWriter = ({ text, startFrame, style }: { text: string; startFrame: number; style?: React.CSSProperties }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const charsPerSecond = 45; // Faster typing
+  const charsPerSecond = 40; // Comfortable reading pace
   const framesSinceStart = Math.max(0, frame - startFrame);
   const charsToShow = Math.floor((framesSinceStart / fps) * charsPerSecond);
   const displayText = text.slice(0, charsToShow);
@@ -301,42 +364,49 @@ const SalesChatScene = () => {
   const { fps } = useVideoConfig();
   
   // Define message pages with SEQUENTIAL timing
-  // Typing speed: 45 chars/sec at 30fps = ~1.5 frames per char
+  // Format: { text, isUser, delay, typing?, typingDots? (frames to show dots before) }
   const pages = [
     // Page 1: Opening + Interest
     {
       startFrame: 0,
-      endFrame: 240,
+      endFrame: 280,
       messages: [
-        // Bot greeting (55 chars = ~40 frames)
-        { text: "Hi! 👋 Welcome to TechPro. How can I help you today?", isUser: false, delay: 10, typing: true },
-        // User reply (appears at 60)
-        { text: "I need cloud hosting for my e-commerce store", isUser: true, delay: 60 },
-        // Bot response (85 chars = ~60 frames, starts at 85)
-        { text: "Great choice! We offer 99.9% uptime and 24/7 support. Want our pricing guide?", isUser: false, delay: 85, typing: true },
-        // User says yes (appears at 155)
-        { text: "Yes please!", isUser: true, delay: 160 },
-        // Bot asks name (45 chars = ~35 frames, starts at 180)
-        { text: "Perfect! What's your name?", isUser: false, delay: 185, typing: true },
+        // Bot greeting with typing dots first
+        { text: "Hi! 👋 Welcome to TechPro. How can I help you today?", isUser: false, delay: 35, typing: true, typingDots: 25 },
+        // User reply (after bot finishes ~55 chars = 40 frames + pause)
+        { text: "I need cloud hosting for my e-commerce store", isUser: true, delay: 95 },
+        // Bot response with typing dots
+        { text: "Great choice! We offer 99.9% uptime and 24/7 support. Want our pricing guide?", isUser: false, delay: 155, typing: true, typingDots: 30 },
+        // User says yes
+        { text: "Yes please!", isUser: true, delay: 230 },
       ]
     },
     // Page 2: Lead capture
     {
-      startFrame: 240,
-      endFrame: 460,
+      startFrame: 280,
+      endFrame: 560,
       messages: [
+        // Bot asks name with typing dots
+        { text: "Perfect! What's your name?", isUser: false, delay: 30, typing: true, typingDots: 20 },
         // User: name
-        { text: "Ahmed Hassan", isUser: true, delay: 10 },
-        // Bot: ask email (35 chars = ~25 frames)
-        { text: "Nice to meet you Ahmed! Your email?", isUser: false, delay: 35, typing: true },
+        { text: "Ahmed Hassan", isUser: true, delay: 85 },
+        // Bot: ask email with typing dots
+        { text: "Nice to meet you Ahmed! Your email?", isUser: false, delay: 130, typing: true, typingDots: 25 },
         // User: email
-        { text: "ahmed@mystore.ae", isUser: true, delay: 75 },
-        // Bot: ask phone (35 chars = ~25 frames)
-        { text: "Great! Best number to reach you?", isUser: false, delay: 100, typing: true },
+        { text: "ahmed@mystore.ae", isUser: true, delay: 195 },
+      ]
+    },
+    // Page 3: Phone + Confirmation
+    {
+      startFrame: 560,
+      endFrame: 750,
+      messages: [
+        // Bot: ask phone with typing dots
+        { text: "Great! Best number to reach you?", isUser: false, delay: 30, typing: true, typingDots: 20 },
         // User: phone
-        { text: "+971 50 123 4567", isUser: true, delay: 140 },
-        // Bot: confirmation (75 chars = ~55 frames)
-        { text: "Thanks! ✅ Pricing guide sent! Our team will call within 24 hours.", isUser: false, delay: 165, typing: true },
+        { text: "+971 50 123 4567", isUser: true, delay: 90 },
+        // Bot: confirmation with typing dots
+        { text: "Thanks Ahmed! ✅ Pricing guide sent! Our team will call within 24 hours.", isUser: false, delay: 140, typing: true, typingDots: 30 },
       ]
     },
   ];
@@ -413,9 +483,6 @@ const SalesChatScene = () => {
             const pageOpacity = getPageOpacity(page, pageIndex);
             if (pageOpacity === 0) return null;
             
-            // Calculate local frame within this page
-            const localFrame = frame - page.startFrame;
-            
             return (
               <div 
                 key={pageIndex}
@@ -428,13 +495,21 @@ const SalesChatScene = () => {
                 }}
               >
                 {page.messages.map((msg, i) => (
-                  <ChatBubble 
-                    key={i}
-                    message={msg.text}
-                    isUser={msg.isUser}
-                    delay={page.startFrame + msg.delay}
-                    typing={msg.typing}
-                  />
+                  <div key={i}>
+                    {/* Show typing indicator before bot messages */}
+                    {!msg.isUser && msg.typingDots && (
+                      <TypingIndicator 
+                        startFrame={page.startFrame + msg.delay - msg.typingDots}
+                        duration={msg.typingDots - 5}
+                      />
+                    )}
+                    <ChatBubble 
+                      message={msg.text}
+                      isUser={msg.isUser}
+                      delay={page.startFrame + msg.delay}
+                      typing={msg.typing}
+                    />
+                  </div>
                 ))}
               </div>
             );
