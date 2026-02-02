@@ -204,7 +204,169 @@ const HookScene = () => {
   );
 };
 
-// Scene 2: The Problem - After Hours
+// Scene 2: Enter Real Estate Website URL
+const EnterURLScene = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  
+  const boxProgress = spring({ frame, fps, config: { damping: 12 } });
+  const typingStart = 25;
+  
+  // Typing animation for URL
+  const urlText = "https://marinaproperties.ae";
+  const charsToShow = Math.floor(((frame - typingStart) / fps) * 25);
+  const displayUrl = frame > typingStart ? urlText.slice(0, Math.min(charsToShow, urlText.length)) : "";
+  const showCursor = frame > typingStart && charsToShow < urlText.length;
+  
+  return (
+    <AbsoluteFill style={{
+      background: COLORS.darker,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 60,
+    }}>
+      <div style={{
+        transform: `scale(${boxProgress})`,
+        width: '80%',
+        maxWidth: 750,
+      }}>
+        <div style={{
+          fontSize: 30,
+          color: 'white',
+          marginBottom: 28,
+          textAlign: 'center',
+        }}>
+          Step 1: Connect your real estate website
+        </div>
+        
+        <div style={{
+          background: '#1e293b',
+          borderRadius: 16,
+          padding: 24,
+          border: '2px solid #334155',
+        }}>
+          <div style={{
+            background: '#0f172a',
+            borderRadius: 12,
+            padding: '18px 22px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 14,
+          }}>
+            <div style={{ fontSize: 22, color: '#64748b' }}>🏠</div>
+            <span style={{ fontSize: 22, color: 'white', fontFamily: 'monospace' }}>
+              {displayUrl}
+              {showCursor && <span style={{ opacity: Math.sin(frame * 0.3) > 0 ? 1 : 0 }}>|</span>}
+            </span>
+          </div>
+          
+          {frame > 90 && (
+            <div style={{
+              marginTop: 18,
+              background: COLORS.gradient,
+              borderRadius: 12,
+              padding: '14px 28px',
+              textAlign: 'center',
+              fontSize: 18,
+              fontWeight: 600,
+              color: 'white',
+              opacity: spring({ frame: frame - 90, fps, config: { damping: 12 } }),
+              transform: `scale(${spring({ frame: frame - 90, fps, config: { damping: 12 } })})`,
+            }}>
+              ✨ Train AI Agent
+            </div>
+          )}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 3: Scanning Real Estate Site
+const ScanningScene = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  
+  const items = [
+    { icon: '🏢', label: 'Property Listings (247 units)', delay: 0 },
+    { icon: '💰', label: 'Pricing & Payment Plans', delay: 20 },
+    { icon: '📍', label: 'Location & Amenities', delay: 40 },
+    { icon: '👤', label: 'Agent Contact Details', delay: 60 },
+    { icon: '📅', label: 'Viewing Availability', delay: 80 },
+    { icon: '📋', label: 'Requirements & Documents', delay: 100 },
+  ];
+  
+  return (
+    <AbsoluteFill style={{
+      background: COLORS.darker,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 60,
+    }}>
+      <div style={{ textAlign: 'center', width: '100%', maxWidth: 650 }}>
+        <div style={{
+          fontSize: 28,
+          color: 'white',
+          marginBottom: 35,
+        }}>
+          🔍 Training on marinaproperties.ae...
+        </div>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {items.map((item, i) => {
+            const progress = spring({ 
+              frame: frame - item.delay, 
+              fps, 
+              config: { damping: 12 } 
+            });
+            const isDone = frame > item.delay + 30;
+            
+            return (
+              <div key={i} style={{
+                background: isDone ? 'rgba(14, 165, 233, 0.1)' : '#1e293b',
+                borderRadius: 12,
+                padding: '12px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                opacity: progress,
+                transform: `translateX(${(1 - progress) * -40}px)`,
+                border: isDone ? '1px solid #0ea5e9' : '1px solid #334155',
+              }}>
+                <div style={{ fontSize: 24 }}>{item.icon}</div>
+                <div style={{ flex: 1, textAlign: 'left', color: 'white', fontSize: 17 }}>
+                  {item.label}
+                </div>
+                {isDone && (
+                  <div style={{ 
+                    fontSize: 20, 
+                    color: '#0ea5e9',
+                    opacity: spring({ frame: frame - item.delay - 30, fps }),
+                  }}>
+                    ✓
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        
+        {frame > 140 && (
+          <div style={{
+            marginTop: 25,
+            fontSize: 20,
+            color: '#22c55e',
+            opacity: spring({ frame: frame - 140, fps }),
+          }}>
+            ✅ AI Agent ready to sell properties 24/7!
+          </div>
+        )}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 4: The Problem - After Hours
 const ProblemScene = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -603,27 +765,43 @@ const CTAScene = () => {
 export const RealEstateSalesDemo = () => {
   return (
     <AbsoluteFill style={{ background: COLORS.darker }}>
+      {/* 1. Hook */}
       <Sequence from={0} durationInFrames={90}>
         <HookScene />
       </Sequence>
       
+      {/* 2. Enter URL */}
       <Sequence from={90} durationInFrames={120}>
+        <EnterURLScene />
+      </Sequence>
+      
+      {/* 3. Scanning */}
+      <Sequence from={210} durationInFrames={180}>
+        <ScanningScene />
+      </Sequence>
+      
+      {/* 4. The Problem (after hours) */}
+      <Sequence from={390} durationInFrames={110}>
         <ProblemScene />
       </Sequence>
       
-      <Sequence from={210} durationInFrames={750}>
+      {/* 5. After Hours Chat Demo */}
+      <Sequence from={500} durationInFrames={750}>
         <AfterHoursChat />
       </Sequence>
       
-      <Sequence from={960} durationInFrames={120}>
+      {/* 6. Lead Notification */}
+      <Sequence from={1250} durationInFrames={120}>
         <LeadNotificationScene />
       </Sequence>
       
-      <Sequence from={1080} durationInFrames={120}>
+      {/* 7. Benefits */}
+      <Sequence from={1370} durationInFrames={120}>
         <BenefitsScene />
       </Sequence>
       
-      <Sequence from={1200} durationInFrames={150}>
+      {/* 8. CTA */}
+      <Sequence from={1490} durationInFrames={150}>
         <CTAScene />
       </Sequence>
     </AbsoluteFill>
