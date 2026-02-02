@@ -5,6 +5,7 @@ import { ChatbotSalesDemo } from "./ChatbotSalesDemo";
 import { RealEstateSalesDemo } from "./RealEstateSalesDemo";
 import { RealEstateDubai } from "./real-estate-dubai";
 import { RealEstateDubaiIG } from "./real-estate-dubai/RealEstateDubaiIG";
+import { RealEstateDubaiIGv2 } from "./real-estate-dubai/RealEstateDubaiIGv2";
 
 export const RemotionRoot = () => {
   return (
@@ -24,6 +25,16 @@ export const RemotionRoot = () => {
         id="RealEstateDubaiIG"
         component={RealEstateDubaiIG}
         durationInFrames={1000}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      
+      {/* Instagram v2 - Original video in browser mockup */}
+      <Composition
+        id="RealEstateDubaiIGv2"
+        component={RealEstateDubaiIGv2}
+        durationInFrames={1600}
         fps={30}
         width={1080}
         height={1920}
