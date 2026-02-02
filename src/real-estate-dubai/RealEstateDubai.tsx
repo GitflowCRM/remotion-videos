@@ -360,18 +360,18 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
       <div style={{
         padding: '35px 60px',
         display: 'flex',
-        gap: 24,
+        gap: 20,
       }}>
         {[
           { 
-            title: '2BR Apartment with Marina View', 
+            title: '2BR Apartment Marina View', 
             price: 'AED 120,000', 
             period: '/year', 
             location: 'Dubai Marina', 
             beds: 2, 
             baths: 2, 
             sqft: '1,250', 
-            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80', 
+            img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', 
             tag: 'VERIFIED' 
           },
           { 
@@ -382,7 +382,7 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
             beds: 4, 
             baths: 5, 
             sqft: '4,800', 
-            img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80', 
+            img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', 
             tag: 'PREMIUM' 
           },
           { 
@@ -393,32 +393,39 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
             beds: 5, 
             baths: 6, 
             sqft: '6,200', 
-            img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80', 
+            img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop', 
             tag: 'NEW' 
           },
         ].map((property, i) => (
           <div key={i} style={{
             background: 'white',
-            borderRadius: 12,
+            borderRadius: 16,
             overflow: 'hidden',
-            flex: 1,
-            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+            width: 340,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
           }}>
+            {/* Image with 4:3 aspect ratio */}
             <div style={{
-              height: 170,
-              backgroundImage: `url(${property.img})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              width: 340,
+              height: 200,
               position: 'relative',
             }}>
+              <img 
+                src={property.img}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
               <div style={{
                 position: 'absolute',
                 top: 12,
                 left: 12,
                 background: property.tag === 'VERIFIED' ? COLORS.primary : property.tag === 'PREMIUM' ? '#f59e0b' : '#3b82f6',
                 color: 'white',
-                padding: '5px 12px',
-                borderRadius: 6,
+                padding: '6px 14px',
+                borderRadius: 8,
                 fontSize: 11,
                 fontWeight: 700,
                 letterSpacing: '0.5px',
