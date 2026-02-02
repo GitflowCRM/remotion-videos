@@ -4,6 +4,7 @@ import { ChatbotBuilderDemo } from "./ChatbotBuilderDemo";
 import { ChatbotSalesDemo } from "./ChatbotSalesDemo";
 import { RealEstateSalesDemo } from "./RealEstateSalesDemo";
 import { RealEstateDubai } from "./real-estate-dubai";
+import { RealEstateDubaiIG } from "./real-estate-dubai/RealEstateDubaiIG";
 
 export const RemotionRoot = () => {
   return (
@@ -16,6 +17,16 @@ export const RemotionRoot = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+      
+      {/* Instagram Reel Version - 9:16 Vertical */}
+      <Composition
+        id="RealEstateDubaiIG"
+        component={RealEstateDubaiIG}
+        durationInFrames={1000}
+        fps={30}
+        width={1080}
+        height={1920}
       />
       
       <Composition
