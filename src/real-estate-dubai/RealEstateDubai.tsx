@@ -356,16 +356,46 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
         </div>
       </div>
       
-      {/* Property Cards - Cleaner design */}
+      {/* Property Cards - With Unsplash Images */}
       <div style={{
         padding: '35px 60px',
         display: 'flex',
         gap: 24,
       }}>
         {[
-          { title: '2BR Apartment with Marina View', price: 'AED 120,000', period: '/year', location: 'Dubai Marina', beds: 2, baths: 2, sqft: '1,250', img: '🏢', tag: 'VERIFIED' },
-          { title: 'Luxury Penthouse', price: 'AED 3,500,000', period: '', location: 'Palm Jumeirah', beds: 4, baths: 5, sqft: '4,800', img: '🌴', tag: 'PREMIUM' },
-          { title: 'Beachfront Villa', price: 'AED 8,900,000', period: '', location: 'JBR', beds: 5, baths: 6, sqft: '6,200', img: '🏖️', tag: 'NEW' },
+          { 
+            title: '2BR Apartment with Marina View', 
+            price: 'AED 120,000', 
+            period: '/year', 
+            location: 'Dubai Marina', 
+            beds: 2, 
+            baths: 2, 
+            sqft: '1,250', 
+            img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80', 
+            tag: 'VERIFIED' 
+          },
+          { 
+            title: 'Luxury Penthouse', 
+            price: 'AED 3,500,000', 
+            period: '', 
+            location: 'Palm Jumeirah', 
+            beds: 4, 
+            baths: 5, 
+            sqft: '4,800', 
+            img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80', 
+            tag: 'PREMIUM' 
+          },
+          { 
+            title: 'Beachfront Villa', 
+            price: 'AED 8,900,000', 
+            period: '', 
+            location: 'JBR', 
+            beds: 5, 
+            baths: 6, 
+            sqft: '6,200', 
+            img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80', 
+            tag: 'NEW' 
+          },
         ].map((property, i) => (
           <div key={i} style={{
             background: 'white',
@@ -375,25 +405,23 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
             boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
           }}>
             <div style={{
-              height: 160,
-              background: `linear-gradient(135deg, ${i === 0 ? '#dbeafe' : i === 1 ? '#fef3c7' : '#d1fae5'} 0%, ${i === 0 ? '#bfdbfe' : i === 1 ? '#fde68a' : '#a7f3d0'} 100%)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 60,
+              height: 170,
+              backgroundImage: `url(${property.img})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               position: 'relative',
             }}>
-              {property.img}
               <div style={{
                 position: 'absolute',
                 top: 12,
                 left: 12,
                 background: property.tag === 'VERIFIED' ? COLORS.primary : property.tag === 'PREMIUM' ? '#f59e0b' : '#3b82f6',
                 color: 'white',
-                padding: '4px 10px',
-                borderRadius: 4,
-                fontSize: 10,
+                padding: '5px 12px',
+                borderRadius: 6,
+                fontSize: 11,
                 fontWeight: 700,
+                letterSpacing: '0.5px',
               }}>
                 {property.tag}
               </div>
@@ -433,16 +461,17 @@ const PropertyFinderSite = ({ children, showChat = false, chatContent }: {
         ))}
       </div>
       
-      {/* Chat Widget - LARGER */}
+      {/* Chat Widget - TALLER */}
       {showChat && (
         <div style={{
           position: 'absolute',
           bottom: 30,
           right: 40,
-          width: 440,
+          width: 460,
+          maxHeight: 620,
           background: 'white',
           borderRadius: 20,
-          boxShadow: '0 15px 50px rgba(0,0,0,0.2)',
+          boxShadow: '0 15px 50px rgba(0,0,0,0.25)',
           overflow: 'hidden',
         }}>
           {chatContent}
@@ -543,7 +572,7 @@ const OfflineChatScene = () => {
         </div>
         
         {/* Chat Body - Offline Message */}
-        <div style={{ padding: 24, minHeight: 280 }}>
+        <div style={{ padding: 24, minHeight: 380 }}>
           <div style={{
             background: '#fef2f2',
             border: '1px solid #fecaca',
@@ -919,8 +948,8 @@ const LiveChatScene = () => {
           </div>
         </div>
         
-        {/* Chat Messages - LARGER */}
-        <div style={{ padding: 20, height: 340, overflow: 'hidden', position: 'relative' }}>
+        {/* Chat Messages - TALLER */}
+        <div style={{ padding: 20, height: 420, overflow: 'hidden', position: 'relative' }}>
           {pages.map((page, pageIndex) => {
             const pageOpacity = getPageOpacity(page, pageIndex);
             if (pageOpacity === 0) return null;
