@@ -39,18 +39,18 @@ export const RealEstateDubaiIGv2: React.FC = () => {
       }}>
         <div style={{ 
           color: COLORS.primary, 
-          fontSize: 22, 
+          fontSize: 38, 
           fontWeight: 700, 
-          marginBottom: 12,
+          marginBottom: 16,
           opacity: spring({ frame: frame % 240, fps, config: { damping: 20 } })
         }}>
           {sceneText.title}
         </div>
         <div style={{ 
           color: 'white', 
-          fontSize: 36, 
+          fontSize: 56, 
           fontWeight: 800, 
-          lineHeight: 1.3,
+          lineHeight: 1.2,
           opacity: spring({ frame: (frame % 240) - 10, fps, config: { damping: 20 } })
         }}>
           {sceneText.subtitle}
@@ -139,43 +139,43 @@ export const RealEstateDubaiIGv2: React.FC = () => {
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: 12, 
-          marginBottom: 16,
+          gap: 16, 
+          marginBottom: 24,
           opacity: spring({ frame: frame - 30, fps })
         }}>
           <div style={{ 
-            width: 50, 
-            height: 50, 
-            borderRadius: 12, 
+            width: 70, 
+            height: 70, 
+            borderRadius: 16, 
             background: COLORS.gradient,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <span style={{ fontSize: 26 }}>🤖</span>
+            <span style={{ fontSize: 38 }}>🤖</span>
           </div>
-          <span style={{ color: 'white', fontSize: 26, fontWeight: 800 }}>LeadFlow AI</span>
+          <span style={{ color: 'white', fontSize: 42, fontWeight: 800 }}>LeadFlow AI</span>
         </div>
         
         {/* CTA */}
         <div style={{ 
           background: COLORS.gradient, 
-          padding: '14px 32px', 
-          borderRadius: 12,
+          padding: '20px 48px', 
+          borderRadius: 16,
           opacity: spring({ frame: frame - 60, fps })
         }}>
-          <span style={{ color: 'white', fontSize: 18, fontWeight: 700 }}>Try Free → leadflow.ae</span>
+          <span style={{ color: 'white', fontSize: 28, fontWeight: 700 }}>Try Free → leadflow.ae</span>
         </div>
         
         {/* Features */}
         <div style={{ 
           display: 'flex', 
-          gap: 24, 
-          marginTop: 20,
+          gap: 36, 
+          marginTop: 28,
           opacity: spring({ frame: frame - 90, fps })
         }}>
-          <span style={{ color: '#94a3b8', fontSize: 14 }}>✓ No credit card</span>
-          <span style={{ color: '#94a3b8', fontSize: 14 }}>✓ 5 min setup</span>
+          <span style={{ color: '#94a3b8', fontSize: 22 }}>✓ No credit card</span>
+          <span style={{ color: '#94a3b8', fontSize: 22 }}>✓ 5 min setup</span>
         </div>
       </div>
     </AbsoluteFill>
