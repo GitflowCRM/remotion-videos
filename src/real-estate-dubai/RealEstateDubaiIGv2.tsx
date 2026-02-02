@@ -29,12 +29,12 @@ export const RealEstateDubaiIGv2: React.FC = () => {
     <AbsoluteFill style={{ background: COLORS.dark, fontFamily }}>
       {/* Top section with text */}
       <div style={{ 
-        height: 280, 
+        height: 240, 
         display: 'flex', 
         flexDirection: 'column', 
-        justifyContent: 'center', 
+        justifyContent: 'flex-end', 
         alignItems: 'center',
-        padding: '60px 40px 20px',
+        padding: '40px 40px 20px',
         textAlign: 'center'
       }}>
         <div style={{ 
@@ -59,7 +59,6 @@ export const RealEstateDubaiIGv2: React.FC = () => {
       
       {/* Browser/Laptop mockup containing the original video */}
       <div style={{ 
-        flex: 1, 
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'flex-start',
@@ -129,12 +128,12 @@ export const RealEstateDubaiIGv2: React.FC = () => {
       
       {/* Bottom section with branding */}
       <div style={{ 
-        height: 280, 
+        flex: 1,
         display: 'flex', 
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center',
-        padding: '20px 40px 80px'
+        padding: '30px 40px 100px'
       }}>
         {/* Logo */}
         <div style={{ 
