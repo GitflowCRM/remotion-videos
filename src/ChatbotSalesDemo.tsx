@@ -13,7 +13,7 @@ const COLORS = {
 const TypeWriter = ({ text, startFrame, style }: { text: string; startFrame: number; style?: React.CSSProperties }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const charsPerSecond = 35;
+  const charsPerSecond = 45; // Faster typing
   const framesSinceStart = Math.max(0, frame - startFrame);
   const charsToShow = Math.floor((framesSinceStart / fps) * charsPerSecond);
   const displayText = text.slice(0, charsToShow);
@@ -300,38 +300,43 @@ const SalesChatScene = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   
-  // Define message pages (groups that fit on screen)
+  // Define message pages with SEQUENTIAL timing
+  // Typing speed: 45 chars/sec at 30fps = ~1.5 frames per char
   const pages = [
-    // Page 1: Opening conversation
+    // Page 1: Opening + Interest
     {
       startFrame: 0,
-      endFrame: 270,
+      endFrame: 240,
       messages: [
-        { text: "Hi there! 👋 Welcome to TechPro Solutions. I'm here to help you find the perfect IT solution for your business.", isUser: false, delay: 15, typing: true },
-        { text: "Hi! I'm looking for cloud hosting for my e-commerce store", isUser: true, delay: 100 },
-        { text: "Great choice! Our cloud hosting is perfect for e-commerce. We offer 99.9% uptime, automatic backups, and 24/7 support. Plans start at AED 299/month. Would you like me to send you our pricing guide?", isUser: false, delay: 140, typing: true },
-        { text: "Yes please!", isUser: true, delay: 250 },
+        // Bot greeting (55 chars = ~40 frames)
+        { text: "Hi! 👋 Welcome to TechPro. How can I help you today?", isUser: false, delay: 10, typing: true },
+        // User reply (appears at 60)
+        { text: "I need cloud hosting for my e-commerce store", isUser: true, delay: 60 },
+        // Bot response (85 chars = ~60 frames, starts at 85)
+        { text: "Great choice! We offer 99.9% uptime and 24/7 support. Want our pricing guide?", isUser: false, delay: 85, typing: true },
+        // User says yes (appears at 155)
+        { text: "Yes please!", isUser: true, delay: 160 },
+        // Bot asks name (45 chars = ~35 frames, starts at 180)
+        { text: "Perfect! What's your name?", isUser: false, delay: 185, typing: true },
       ]
     },
     // Page 2: Lead capture
     {
-      startFrame: 270,
-      endFrame: 520,
+      startFrame: 240,
+      endFrame: 460,
       messages: [
-        { text: "Perfect! Just need a few details to personalize the guide for you. What's your name?", isUser: false, delay: 0, typing: true },
-        { text: "Ahmed Hassan", isUser: true, delay: 70 },
-        { text: "Nice to meet you, Ahmed! And your email so I can send the pricing guide?", isUser: false, delay: 100, typing: true },
-        { text: "ahmed@mystore.ae", isUser: true, delay: 160 },
-      ]
-    },
-    // Page 3: Final details + confirmation
-    {
-      startFrame: 520,
-      endFrame: 750,
-      messages: [
-        { text: "Great! One last thing - what's the best number to reach you if our team has questions?", isUser: false, delay: 0, typing: true },
-        { text: "+971 50 123 4567", isUser: true, delay: 60 },
-        { text: "Thanks Ahmed! ✅ I've sent the pricing guide to your email. Our sales team will also reach out within 24 hours with a personalized quote. Is there anything else I can help with?", isUser: false, delay: 100, typing: true },
+        // User: name
+        { text: "Ahmed Hassan", isUser: true, delay: 10 },
+        // Bot: ask email (35 chars = ~25 frames)
+        { text: "Nice to meet you Ahmed! Your email?", isUser: false, delay: 35, typing: true },
+        // User: email
+        { text: "ahmed@mystore.ae", isUser: true, delay: 75 },
+        // Bot: ask phone (35 chars = ~25 frames)
+        { text: "Great! Best number to reach you?", isUser: false, delay: 100, typing: true },
+        // User: phone
+        { text: "+971 50 123 4567", isUser: true, delay: 140 },
+        // Bot: confirmation (75 chars = ~55 frames)
+        { text: "Thanks! ✅ Pricing guide sent! Our team will call within 24 hours.", isUser: false, delay: 165, typing: true },
       ]
     },
   ];
